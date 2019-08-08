@@ -5,6 +5,7 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import colors from 'vuetify/lib/util/colors'
+import { sync } from 'vuex-router-sync'
 
 Vue.config.productionTip = false
 
@@ -15,6 +16,8 @@ Vue.use(vuetify, {
     accent: colors.indigo.base // #3F51B5
   }
 })
+
+sync(store, router)
 
 new Vue({
   router,

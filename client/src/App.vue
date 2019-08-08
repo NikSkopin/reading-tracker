@@ -29,13 +29,14 @@
 
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <router-link to="login">
+          <router-link to="login" v-if="!$store.state.isUserLoggedIn">
             <v-btn text>Sign In</v-btn>
           </router-link>
 
-          <router-link to="register">
+          <router-link to="register" v-if="!$store.state.isUserLoggedIn">
             <v-btn text>Sign Up</v-btn>
           </router-link>
+          <v-btn text v-if="$store.state.isUserLoggedIn">Logout</v-btn>
         </v-toolbar-items>
       </v-app-bar>
 
