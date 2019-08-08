@@ -36,7 +36,7 @@
           <router-link to="register" v-if="!$store.state.isUserLoggedIn">
             <v-btn text>Sign Up</v-btn>
           </router-link>
-          <v-btn text v-if="$store.state.isUserLoggedIn">Logout</v-btn>
+          <v-btn text v-if="$store.state.isUserLoggedIn" @click="logout">Logout</v-btn>
         </v-toolbar-items>
       </v-app-bar>
 
@@ -61,7 +61,16 @@ export default {
   props: {},
   data: () => ({
     drawer: null
-  })
+  }),
+  methods: {
+    logout() {
+      this.$store.dispatch("setToken", null);
+      this.$store.dispatch("setUser", null);
+      this.$router.push({
+        name: "home"
+      });
+    }
+  }
 };
 </script>
 
