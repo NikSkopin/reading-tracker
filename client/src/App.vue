@@ -27,27 +27,35 @@
           <v-btn text>Browse</v-btn>
         </v-appbar-items>-->
 
+        <v-toolbar-items>
+          <router-link to="home">
+            <v-btn text>Dashboard</v-btn>
+          </router-link>
+
+          <router-link to="books" v-if="$store.state.isUserLoggedIn">
+            <v-btn text>My books</v-btn>
+          </router-link>
+
+          <router-link to="search">
+            <v-btn text>Search</v-btn>
+          </router-link>
+        </v-toolbar-items>
+
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <router-link to="login" v-if="!$store.state.isUserLoggedIn">
-            <v-btn text>Sign In</v-btn>
+            <v-btn text>Login</v-btn>
           </router-link>
 
           <router-link to="register" v-if="!$store.state.isUserLoggedIn">
-            <v-btn text>Sign Up</v-btn>
+            <v-btn text>Register</v-btn>
           </router-link>
           <v-btn text v-if="$store.state.isUserLoggedIn" @click="logout">Logout</v-btn>
         </v-toolbar-items>
       </v-app-bar>
 
       <v-content>
-        <v-container fluid fill-height>
-          <v-layout align-center justify-center>
-            <v-flex xs12 sm8 md4>
-              <router-view />
-            </v-flex>
-          </v-layout>
-        </v-container>
+        <router-view />
       </v-content>
       <v-footer color="primary" app>
         <span class="white--text">&copy; 2019</span>

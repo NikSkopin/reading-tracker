@@ -1,24 +1,29 @@
 <template>
-  <v-card class="elevation-12">
-    <v-toolbar color="primary" dark flat>
-      <v-toolbar-title>Register</v-toolbar-title>
-    </v-toolbar>
-    <v-card-text>
-      <v-form>
-        <v-text-field label="Email" prepend-icon="person" type="email" v-model="email"></v-text-field>
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md6>
+        <Panel title="Register">
+          <v-card-text>
+            <v-form>
+              <v-text-field label="Email" prepend-icon="person" type="email" v-model="email"></v-text-field>
 
-        <v-text-field label="Password" prepend-icon="lock" type="password" v-model="password"></v-text-field>
-        <div class="err" v-html="error"></div>
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" @click="register">Register</v-btn>
-    </v-card-actions>
-  </v-card>
+              <v-text-field label="Password" prepend-icon="lock" type="password" v-model="password"></v-text-field>
+              <div class="err" v-html="error"></div>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="register">Register</v-btn>
+          </v-card-actions>
+        </Panel>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
+import Panel from "@/components/Panel";
+
 import AuthenticationService from "@/services/AuthenticationService";
 export default {
   data() {
@@ -42,6 +47,9 @@ export default {
         this.error = error.response.data.error;
       }
     }
+  },
+  components: {
+    Panel
   }
 };
 </script>
