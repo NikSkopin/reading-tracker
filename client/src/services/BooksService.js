@@ -1,7 +1,10 @@
 import Api from '@/services/Api'
 
 export default {
-  index(listType) {
-    return Api().get('mybooks', listType)
+  index() {
+    return Api().get('mybooks')
+  },
+  post(book) {
+    return Api().post('mybooks', book)
   }
 }
