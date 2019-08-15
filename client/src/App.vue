@@ -91,4 +91,7 @@ export default {
   //TODO: make hove effect like for buttons and sandwich
   color: #e0e0e0;
 }
+.err {
+  color: red;
+}
 </style>

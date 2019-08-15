@@ -1,9 +1,10 @@
 <template>
   <div>
     <div v-for="bookElement in bookList" :key="bookElement.id">
-      {{bookElement.title}}
-      {{bookElement.author}}
-      <!-- <Book /> -->
+      <!-- {{bookElement.title}}
+      {{bookElement.author}}-->
+      <Book :book="bookElement" />
+      <!-- <Book :title="bookElement.title" :author="bookElement.author" :image="bookElement.bookImage" /> -->
     </div>
   </div>
 </template>
@@ -28,6 +29,7 @@ export default {
     this.bookList = list.filter(element => {
       return element.listType === this.listType;
     });
+    console.log(this.bookList);
   }
 };
 </script>
