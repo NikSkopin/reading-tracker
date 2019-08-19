@@ -60,8 +60,6 @@ export default {
   },
   methods: {
     async add() {
-      console.log(typeof this.book.bookImage, typeof this.book.author);
-
       this.error = null;
       if (this.book.selection === "Reading now") {
         this.book.listType = "current";
@@ -83,7 +81,7 @@ export default {
           name: "mybooks"
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     },
     clear() {

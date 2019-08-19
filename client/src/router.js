@@ -5,6 +5,7 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import MyBooks from '@/components/MyBooks'
 import AddCustomBook from '@/components/AddCustomBook'
+import Search from '@/components/Search'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/mybooks/add',
       name: 'book-create',
       component: AddCustomBook
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search
     }
   ]
 })

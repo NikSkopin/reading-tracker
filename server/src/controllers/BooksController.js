@@ -3,8 +3,6 @@ const { Book } = require('../models')
 module.exports = {
   async index(req, res) {
     try {
-      console.log('print', req.body)
-
       const book = await Book.findAll()
       res.send(book)
     } catch (err) {
