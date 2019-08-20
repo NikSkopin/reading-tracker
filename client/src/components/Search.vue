@@ -22,16 +22,16 @@
                 <v-list-item v-for="bookElement in searchResults.items" :key="bookElement.id">
                   <v-list-item-avatar tile width="20%" height="100%">
                     <v-img
-                      height="200px"
-                      width="100%"
-                      class="white--text"
                       :src="'http://books.google.com/books/content?id=' + bookElement.id + '&printsec=frontcover&img=1&zoom=1&source=gbs_api'"
                       contain
                     ></v-img>
                   </v-list-item-avatar>
                   <v-list-item-content>
                     <v-list-item-title>{{bookElement.volumeInfo.title}}</v-list-item-title>
-                    <v-list-item-subtitle>by {{ bookElement.volumeInfo.authors.join(', ') }}</v-list-item-subtitle>
+                    <v-list-item-subtitle
+                      v-if="bookElement.volumeInfo.authors"
+                    >by {{bookElement.volumeInfo.authors.join(', ')}}</v-list-item-subtitle>
+                    <v-list-item-subtitle v-else>by {{'unknown'}}</v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-select
@@ -41,8 +41,8 @@
                       required
                     ></v-select>
 
-                    <v-btn color="primary">Add</v-btn>
-                    <!-- <v-btn color="primary" @click="add">Add</v-btn> -->
+                    <!-- <v-btn color="primary">Add</v-btn> -->
+                    <v-btn color="primary" @click="add(bookElement)">Add</v-btn>
                   </v-list-item-action>
                 </v-list-item>
               </v-list-item-group>
@@ -71,7 +71,7 @@ export default {
         genre: null,
         description: null,
         bookImage: null,
-        // googleBooksId: null,
+        googleBooksId: null,
         listType: null,
         selection: null,
         items: ["Reading now", "Want to read", "Finished"]
@@ -87,22 +87,27 @@ export default {
         const response = await SearchService.search(this.searchTerm);
         this.searchResults = response.data;
       } catch (err) {}
-    }
-    /*
-    async add() {
+    },
+
+    async add(bookElement) {
       if (this.book.selection === "Reading now") {
         this.book.listType = "current";
       } else if (this.book.selection === "Finished") {
         this.book.listType = "finished";
       } else this.book.listType = "wantToRead";
 
-      const areAllFieldsFilledIn = Object.keys(this.book).every(
-        key => !!this.book[key]
-      );
-      if (!areAllFieldsFilledIn) {
-        this.error = "Please fill in all the required fields.";
-        return;
-      }
+      this.book.title = bookElement.volumeInfo.title;
+      this.book.author = bookElement.volumeInfo.authors.join(", ");
+      if (bookElement.volumeInfo.categories) {
+        this.book.genre = bookElement.volumeInfo.categories.join(", ");
+      } else this.book.genre = "unknown";
+      if (bookElement.volumeInfo.description) {
+        this.book.description = bookElement.volumeInfo.description;
+      } else this.book.description = "Description is not available";
+      // this.bookImage = bookElement.volumeInfo.imageLinks.thumbnail;
+      this.bookImage = `http://books.google.com/books/content?id=${bookElement.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`;
+      this.book.googleBooksId = bookElement.id;
+
       //add book to database
       try {
         await BooksService.post(this.book);
@@ -110,7 +115,7 @@ export default {
           name: "mybooks"
         });
       } catch (err) {}
-    }*/
+    }
   }
 };
 </script>

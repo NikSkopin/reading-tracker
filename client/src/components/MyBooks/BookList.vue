@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <p>{{listType}}</p>
+    </div>
     <div v-for="bookElement in bookList" :key="bookElement.id">
       <!-- {{bookElement.title}}
       {{bookElement.author}}-->
