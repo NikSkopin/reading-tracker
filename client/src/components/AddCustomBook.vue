@@ -81,7 +81,7 @@ export default {
           name: "mybooks"
         });
       } catch (err) {
-        // console.log(err);
+        this.error = err;
       }
     },
     clear() {

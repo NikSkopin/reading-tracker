@@ -21,7 +21,6 @@
 </template>
 <script>
 export default {
-  // props: ["image", "title", "author"]
   props: ["book"]
 };
 </script>

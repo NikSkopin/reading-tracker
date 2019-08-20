@@ -29,7 +29,6 @@ export default {
     this.bookList = list.filter(element => {
       return element.listType === this.listType;
     });
-    console.log(this.bookList);
   }
 };
 </script>
