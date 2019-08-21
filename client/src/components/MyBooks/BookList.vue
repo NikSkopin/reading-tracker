@@ -1,13 +1,10 @@
 <template>
   <div>
     <div>
-      <p>{{listType}}</p>
+      <p>{{ listType }}</p>
     </div>
     <div v-for="bookElement in bookList" :key="bookElement.id">
-      <!-- {{bookElement.title}}
-      {{bookElement.author}}-->
       <Book :book="bookElement" />
-      <!-- <Book :title="bookElement.title" :author="bookElement.author" :image="bookElement.bookImage" /> -->
     </div>
   </div>
 </template>
@@ -35,4 +32,3 @@ export default {
   }
 };
 </script>
-

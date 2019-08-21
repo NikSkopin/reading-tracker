@@ -14,11 +14,17 @@
           <v-list-item-content>
             <p class="display-1 text--primary">{{book.title}}</p>
             <p class="title">by {{book.author}}</p>
-            <p class="subtitle-1">{{book.description}}</p>
           </v-list-item-content>
         </v-list-item>
         <div>
-          <v-btn color="primary">Details</v-btn>
+          <v-btn color="primary">
+            <router-link
+              :to="{ name: 'book', params: {bookId: book.id } }"
+              tag="span"
+              class="v-btn__content"
+            >Details</router-link>
+          </v-btn>
+
           <v-btn color="primary" @click="deleteItem">Delete</v-btn>
         </div>
       </v-list-item-group>

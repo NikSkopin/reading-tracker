@@ -1,55 +1,43 @@
 <template>
   <div id="app">
     <v-app>
-      <v-navigation-drawer v-model="drawer" app>
-        <v-list dense>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Home</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Contact</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-
       <v-app-bar app color="primary" dark>
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <router-link to="home" tag="span" class="v-toolbar__title home">
+        <router-link :to="{name: 'home'}" tag="span" class="v-toolbar__title home">
           <v-toolbar-title>Reading Tracker</v-toolbar-title>
         </router-link>
-
-        <!-- TODO: may be you need me later, implement -->
-        <!-- <v-appbar-items>
-          <v-btn text>Browse</v-btn>
-        </v-appbar-items>-->
-
         <v-toolbar-items>
-          <router-link to="home">
-            <v-btn text>Dashboard</v-btn>
-          </router-link>
+          <v-btn text>
+            <router-link :to="{name: 'home'}" tag="span" class="v-btn__content">Dashboard</router-link>
+          </v-btn>
 
-          <router-link to="books" v-if="$store.state.isUserLoggedIn">
-            <v-btn text>My books</v-btn>
-          </router-link>
+          <v-btn text v-if="$store.state.isUserLoggedIn">
+            <router-link :to="mybooks" tag="span" class="v-btn__content">My books</router-link>
+          </v-btn>
 
-          <router-link to="search">
-            <v-btn text>Search</v-btn>
-          </router-link>
+          <v-btn text>
+            <router-link :to="{name: 'search'}" tag="span" class="v-btn__content">Search</router-link>
+          </v-btn>
         </v-toolbar-items>
 
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <router-link to="login" v-if="!$store.state.isUserLoggedIn">
-            <v-btn text>Login</v-btn>
-          </router-link>
+          <v-btn text>
+            <router-link
+              :to="{name: 'login'}"
+              v-if="!$store.state.isUserLoggedIn"
+              tag="span"
+              class="v-btn__content"
+            >Login</router-link>
+          </v-btn>
 
-          <router-link to="register" v-if="!$store.state.isUserLoggedIn">
-            <v-btn text>Register</v-btn>
-          </router-link>
+          <v-btn text>
+            <router-link
+              :to="{name: 'register'}"
+              v-if="!$store.state.isUserLoggedIn"
+              tag="span"
+              class="v-btn__content"
+            >Register</router-link>
+          </v-btn>
           <v-btn text v-if="$store.state.isUserLoggedIn" @click="logout">Logout</v-btn>
         </v-toolbar-items>
       </v-app-bar>
@@ -81,7 +69,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .home {

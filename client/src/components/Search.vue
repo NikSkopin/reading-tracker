@@ -31,7 +31,7 @@
                     <v-list-item-subtitle
                       v-if="bookElement.volumeInfo.authors"
                     >by {{bookElement.volumeInfo.authors.join(', ')}}</v-list-item-subtitle>
-                    <v-list-item-subtitle v-else>by {{'unknown'}}</v-list-item-subtitle>
+                    <v-list-item-subtitle v-else>by {{"unknown"}}</v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-select
@@ -56,13 +56,13 @@
 
 <script>
 import Panel from "@/components/Panel";
-// import Book from "@/components/Book";
 import SearchService from "@/services/SearchService";
 import BooksService from "@/services/BooksService";
 
 export default {
   data() {
     return {
+      error: "",
       searchTerm: "",
       searchResults: [],
       book: {
@@ -86,7 +86,9 @@ export default {
       try {
         const response = await SearchService.search(this.searchTerm);
         this.searchResults = response.data;
-      } catch (err) {}
+      } catch (err) {
+        this.error = err;
+      }
     },
 
     async add(bookElement) {
@@ -97,7 +99,9 @@ export default {
       } else this.book.listType = "wantToRead";
 
       this.book.title = bookElement.volumeInfo.title;
-      this.book.author = bookElement.volumeInfo.authors.join(", ");
+      if (bookElement.volumeInfo.authors) {
+        this.book.author = bookElement.volumeInfo.authors.join(", ");
+      } else this.book.author = "unknown";
       if (bookElement.volumeInfo.categories) {
         this.book.genre = bookElement.volumeInfo.categories.join(", ");
       } else this.book.genre = "unknown";
@@ -114,7 +118,9 @@ export default {
         this.$router.push({
           name: "mybooks"
         });
-      } catch (err) {}
+      } catch (err) {
+        this.error = err;
+      }
     }
   }
 };

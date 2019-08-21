@@ -20,9 +20,9 @@
                   <router-link to="mybooks/add" tag="span" class="v-toolbar__title home">
                     <v-btn color="primary">Add Custom Book</v-btn>
                   </router-link>
-                  <!-- <router-link to="search" tag="span" class="v-toolbar__title home">
-                    <v-btn color="primary">Add Custom Book</v-btn>
-                  </router-link>-->
+                  <router-link to="/search" tag="span" class="v-toolbar__title home">
+                    <v-btn color="primary">Google Books Search</v-btn>
+                  </router-link>
                 </v-card-actions>
               </v-flex>
             </v-layout>

@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import MyBooks from '@/components/MyBooks'
 import AddCustomBook from '@/components/AddCustomBook'
 import Search from '@/components/Search'
+import ViewBook from '@/components/ViewBook'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/mybooks',
       name: 'mybooks',
       component: MyBooks
+    },
+    {
+      path: '/mybooks/:bookId',
+      name: 'book',
+      component: ViewBook
     },
     {
       path: '/mybooks/add',

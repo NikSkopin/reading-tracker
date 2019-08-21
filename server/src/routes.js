@@ -14,4 +14,6 @@ module.exports = app => {
   app.get('/mybooks', BooksController.index)
 
   app.post('/mybooks', BooksController.post)
+
+  app.get('/mybooks/:bookId', BooksController.show)
 }

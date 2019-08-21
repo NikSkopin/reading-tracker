@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "askForPassword": false,
+            "connectionTimeout": 30,
+            "database": "reading tracker",
+            "dialect": "MySQL",
+            "name": "reading tracker",
+            "port": 8081,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}
