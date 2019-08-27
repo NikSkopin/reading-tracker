@@ -16,4 +16,6 @@ module.exports = app => {
   app.post('/mybooks', BooksController.post)
 
   app.get('/mybooks/:bookId', BooksController.show)
+
+  // app.post('/book', BooksController.deleteItem)
 }

@@ -11,7 +11,7 @@
           </v-btn>
 
           <v-btn text v-if="$store.state.isUserLoggedIn">
-            <router-link :to="mybooks" tag="span" class="v-btn__content">My books</router-link>
+            <router-link :to="{name: 'mybooks'}" tag="span" class="v-btn__content">My books</router-link>
           </v-btn>
 
           <v-btn text>
@@ -21,22 +21,12 @@
 
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <v-btn text>
-            <router-link
-              :to="{name: 'login'}"
-              v-if="!$store.state.isUserLoggedIn"
-              tag="span"
-              class="v-btn__content"
-            >Login</router-link>
+          <v-btn text v-if="!$store.state.isUserLoggedIn">
+            <router-link :to="{name: 'login'}" tag="span" class="v-btn__content">Login</router-link>
           </v-btn>
 
-          <v-btn text>
-            <router-link
-              :to="{name: 'register'}"
-              v-if="!$store.state.isUserLoggedIn"
-              tag="span"
-              class="v-btn__content"
-            >Register</router-link>
+          <v-btn text v-if="!$store.state.isUserLoggedIn">
+            <router-link :to="{name: 'register'}" tag="span" class="v-btn__content">Register</router-link>
           </v-btn>
           <v-btn text v-if="$store.state.isUserLoggedIn" @click="logout">Logout</v-btn>
         </v-toolbar-items>

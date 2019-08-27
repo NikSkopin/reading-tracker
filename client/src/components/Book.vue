@@ -25,20 +25,24 @@
             >Details</router-link>
           </v-btn>
 
-          <v-btn color="primary" @click="deleteItem">Delete</v-btn>
+          <v-btn color="primary" @click="deleteItem(book)">Delete</v-btn>
         </div>
       </v-list-item-group>
     </v-list>
   </v-container>
 </template>
 <script>
+import BooksService from "@/services/BooksService";
 export default {
   props: ["book"],
   methods: {
-    async deleteItem() {
-      //       try {
-      //   await BooksService.deleteItem(book.id);
-      // } catch (err) {}
+    async deleteItem(book) {
+      try {
+        console.log("deleteitem", book);
+        await BooksService.deleteItem(book);
+      } catch (err) {
+        console.log("Can't delete this item");
+      }
     }
   }
 };

@@ -14,6 +14,7 @@ module.exports = {
   async show(req, res) {
     try {
       const book = await Book.findByPk(req.params.bookId)
+
       res.send(book)
     } catch (err) {
       res.status(400).send({
@@ -29,6 +30,21 @@ module.exports = {
     } catch (err) {
       res.status(400).send({
         error: 'An error has occured trying to create the books.'
+      })
+    }
+  },
+  async deleteItem(req, res) {
+    try {
+      console.log('consolling', req)
+      const book = await Book.findByPk(req.params.bookId)
+
+      // .then(bookItem => {
+      //   return bookItem.destroy()
+      // })
+      res.send(book)
+    } catch (err) {
+      res.status(400).send({
+        error: 'An error has occured trying to delete the book.'
       })
     }
   }
