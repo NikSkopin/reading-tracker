@@ -35,7 +35,7 @@
 
 <script>
 import Panel from "@/components/Panel";
-import BookList from "@/components/MyBooks/BookList";
+import BookList from "@/components/BookList";
 export default {
   components: {
     Panel,

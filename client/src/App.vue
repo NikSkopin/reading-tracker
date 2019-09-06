@@ -6,9 +6,9 @@
           <v-toolbar-title>Reading Tracker</v-toolbar-title>
         </router-link>
         <v-toolbar-items>
-          <v-btn text>
+          <!-- <v-btn text>
             <router-link :to="{name: 'home'}" tag="span" class="v-btn__content">Dashboard</router-link>
-          </v-btn>
+          </v-btn>-->
 
           <v-btn text v-if="$store.state.isUserLoggedIn">
             <router-link :to="{name: 'mybooks'}" tag="span" class="v-btn__content">My books</router-link>

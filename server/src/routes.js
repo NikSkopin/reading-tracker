@@ -17,5 +17,5 @@ module.exports = app => {
 
   app.get('/mybooks/:bookId', BooksController.show)
 
-  // app.post('/book', BooksController.deleteItem)
+  app.delete('/mybooks/:bookId', BooksController.deleteItem)
 }

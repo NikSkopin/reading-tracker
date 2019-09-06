@@ -9,8 +9,8 @@ export default {
   },
   post(book) {
     return Api().post('mybooks', book)
+  },
+  deleteItem(bookId) {
+    return Api().delete(`mybooks/${bookId}`)
   }
-  // deleteItem(book) {
-  //   return Api().get('mybooks', book)
-  // }
 }
