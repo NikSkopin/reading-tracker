@@ -1,35 +1,56 @@
 <template>
-  <v-container fluid>
-    <v-list avatar>
-      <v-list-item-group color="primary">
-        <v-list-item>
-          <v-list-item-avatar tile width="20%" height="100%">
-            <v-img :src="book.bookImage" contain v-if="book.bookImage"></v-img>
-            <v-img
-              :src="'http://books.google.com/books/content?id=' + book.googleBooksId + '&printsec=frontcover&img=1&zoom=1&source=gbs_api'"
-              contain
-              v-else
-            ></v-img>
-          </v-list-item-avatar>
-          <v-list-item-content>
+  <router-link :to="{ name: 'book', params: {bookId: book.id } }" class="nodec">
+    <v-card max-height="300px" class="mb-4 pa-4" flat hover>
+      <v-row>
+        <v-col cols="4" class="pa-0">
+          <v-img
+            :src="book.bookImage"
+            height="90%"
+            max-height="300px"
+            contain
+            v-if="book.bookImage"
+          ></v-img>
+          <v-img
+            :src="'http://books.google.com/books/content?id=' + book.googleBooksId + '&printsec=frontcover&img=1&zoom=1&source=gbs_api'"
+            max-height="300px"
+            height="90%"
+            contain
+            v-else
+          ></v-img>
+        </v-col>
+        <v-col cols="8" class="pl-0 pr-0">
+          <v-col cols="12">
             <p class="display-1 text--primary">{{book.title}}</p>
             <p class="title">by {{book.author}}</p>
-          </v-list-item-content>
-        </v-list-item>
-        <div>
-          <v-btn color="primary">
-            <router-link
-              :to="{ name: 'book', params: {bookId: book.id } }"
-              tag="span"
-              class="v-btn__content"
-            >Details</router-link>
-          </v-btn>
+          </v-col>
+          <v-row>
+            <v-col cols="5">
+              <v-btn :to="{ name: 'book', params: {bookId: book.id } }" icon color="primary">
+                <v-icon dark>mdi-book-open</v-icon>
+              </v-btn>
 
-          <v-btn color="primary" @click="deleteItem(book.id)">Delete</v-btn>
-        </div>
-      </v-list-item-group>
-    </v-list>
-  </v-container>
+              <v-btn @click="deleteItem(book.id)" icon color="primary">
+                <v-icon>mdi-delete-outline</v-icon>
+              </v-btn>
+            </v-col>
+            <v-col cols="7">
+              <v-btn icon>
+                <v-icon color="primary">mdi-book-open-page-variant</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon color="primary">mdi-timer-sand</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon color="primary">mdi-check-bold</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
+      <v-card-actions></v-card-actions>
+    </v-card>
+  </router-link>
 </template>
 <script>
 import BooksService from "@/services/BooksService";
@@ -50,4 +71,7 @@ export default {
 };
 </script>
 <style>
+.nodec {
+  text-decoration: none;
+}
 </style>

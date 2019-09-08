@@ -6,13 +6,18 @@
           <v-container fluid>
             <v-layout align-space-between justify-center column fill-height>
               <v-flex xs12>
-                <v-card>
+                <v-card class="mb-10">
+                  <v-card-title class="text-uppercase" primary-title>reading now</v-card-title>
                   <BookList listType="current" />
                 </v-card>
-                <v-card>
+                <v-card class="mb-10">
+                  <v-card-title class="text-uppercase" primary-title>want to read</v-card-title>
+
                   <BookList listType="wantToRead" />
                 </v-card>
                 <v-card>
+                  <v-card-title class="text-uppercase" primary-title>already done</v-card-title>
+
                   <BookList listType="finished" />
                 </v-card>
                 <v-card-actions>

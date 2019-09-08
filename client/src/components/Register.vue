@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md6>
         <Panel title="Register">
           <v-card-text>
-            <v-form>
+            <v-form @submit.prevent="login" id="login-form">
               <v-text-field label="Email" prepend-icon="person" type="email" v-model="email"></v-text-field>
 
               <v-text-field label="Password" prepend-icon="lock" type="password" v-model="password"></v-text-field>
@@ -13,7 +13,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="register">Register</v-btn>
+            <v-btn color="primary" type="submit" form="login-form" @click="register">Register</v-btn>
           </v-card-actions>
         </Panel>
       </v-flex>

@@ -6,47 +6,62 @@
           <v-form @submit.prevent="search">
             <v-container fluid>
               <v-layout align-center justify-center>
-                <v-flex xs11>
+                <v-flex xs10>
                   <v-text-field label="Search" prepend-icon="search" v-model="searchTerm"></v-text-field>
                 </v-flex>
-                <v-flex xs1>
-                  <v-btn class="ml-4" type="submit" @click="search">Search</v-btn>
+                <v-flex xs2>
+                  <v-btn class="ml-2 mr-2" color="primary" type="submit" @click="search">Search</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
           </v-form>
           <v-container>
-            <v-list threeLine avatar>
-              <v-subheader>Search Results</v-subheader>
-              <v-list-item-group color="primary">
-                <v-list-item v-for="bookElement in searchResults.items" :key="bookElement.id">
-                  <v-list-item-avatar tile width="20%" height="100%">
-                    <v-img
-                      :src="'http://books.google.com/books/content?id=' + bookElement.id + '&printsec=frontcover&img=1&zoom=1&source=gbs_api'"
-                      contain
-                    ></v-img>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title>{{bookElement.volumeInfo.title}}</v-list-item-title>
-                    <v-list-item-subtitle
-                      v-if="bookElement.volumeInfo.authors"
-                    >by {{bookElement.volumeInfo.authors.join(', ')}}</v-list-item-subtitle>
-                    <v-list-item-subtitle v-else>by {{"unknown"}}</v-list-item-subtitle>
-                  </v-list-item-content>
-                  <v-list-item-action>
-                    <v-select
-                      v-model="book.selection"
-                      :items="book.items"
-                      label="Add to list"
-                      required
-                    ></v-select>
+            <v-subheader>Search Results</v-subheader>
 
-                    <!-- <v-btn color="primary">Add</v-btn> -->
-                    <v-btn color="primary" @click="add(bookElement)">Add</v-btn>
-                  </v-list-item-action>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
+            <v-card
+              v-for="bookElement in searchResults.items"
+              :key="bookElement.id"
+              max-height="300px"
+            >
+              <v-row>
+                <v-col cols="4">
+                  <v-img
+                    :src="'http://books.google.com/books/content?id=' + bookElement.id + '&printsec=frontcover&img=1&zoom=1&source=gbs_api'"
+                    contain
+                    max-height="300px"
+                  ></v-img>
+                </v-col>
+                <v-col cols="8" class="pl-0 pr-0">
+                  <v-col cols="12" align-self="start">
+                    <v-header class="display-1">{{bookElement.volumeInfo.title}}</v-header>
+                    <v-subheader
+                      class="subtitle-1 pl-0"
+                      v-if="bookElement.volumeInfo.authors"
+                    >by {{bookElement.volumeInfo.authors.join(', ')}}</v-subheader>
+                    <v-subheader class="subtitle-1 pl-0" v-else>by {{"unknown"}}</v-subheader>
+                  </v-col>
+                  <v-col cols="12" align-self="end">
+                    <v-container fluid class="pl-0 pr-0">
+                      <v-layout align-center justify-space-between>
+                        <v-flex xs8>
+                          <v-select
+                            v-model="book.selection"
+                            :items="book.items"
+                            label="Add to list"
+                            required
+                          ></v-select>
+                        </v-flex>
+                        <v-flex xs4 class="ml-4">
+                          <v-btn color="primary" @click="add(bookElement)">Add</v-btn>
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-col>
+                </v-col>
+              </v-row>
+
+              <v-card-actions></v-card-actions>
+            </v-card>
           </v-container>
         </Panel>
       </v-flex>
@@ -108,7 +123,6 @@ export default {
       if (bookElement.volumeInfo.description) {
         this.book.description = bookElement.volumeInfo.description;
       } else this.book.description = "Description is not available";
-      // this.bookImage = bookElement.volumeInfo.imageLinks.thumbnail;
       this.bookImage = `http://books.google.com/books/content?id=${bookElement.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`;
       this.book.googleBooksId = bookElement.id;
 

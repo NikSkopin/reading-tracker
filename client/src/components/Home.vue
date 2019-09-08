@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <!-- <div>
-      <Search />
-    </div>
-    <div>
-      <MyBooks />
-    </div>-->
-    Application description.
-    Please register or log in
-  </div>
+  <v-container fluid>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md8>
+        <v-card>
+          Application description.
+          Please register or log in
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
