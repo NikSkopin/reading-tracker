@@ -33,7 +33,7 @@
                 </v-col>
                 <v-col cols="8" class="pl-0 pr-0">
                   <v-col cols="12" align-self="start">
-                    <v-header class="display-1">{{bookElement.volumeInfo.title}}</v-header>
+                    <p class="display-1">{{bookElement.volumeInfo.title}}</p>
                     <v-subheader
                       class="subtitle-1 pl-0"
                       v-if="bookElement.volumeInfo.authors"

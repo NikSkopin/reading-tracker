@@ -1,6 +1,6 @@
 <template>
   <router-link :to="{ name: 'book', params: {bookId: book.id } }" class="nodec">
-    <v-card max-height="300px" class="mb-4 pa-4" flat hover>
+    <v-card class="mb-4 pa-4" flat hover>
       <v-row>
         <v-col cols="4" class="pa-0">
           <v-img
@@ -24,25 +24,67 @@
             <p class="title">by {{book.author}}</p>
           </v-col>
           <v-row>
-            <v-col cols="5">
-              <v-btn :to="{ name: 'book', params: {bookId: book.id } }" icon color="primary">
-                <v-icon dark>mdi-book-open</v-icon>
-              </v-btn>
+            <v-col cols="12" class="py-0">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    :to="{ name: 'book', params: {bookId: book.id } }"
+                    icon
+                    color="primary"
+                    v-on="on"
+                  >
+                    <v-icon dark>mdi-book-open</v-icon>
+                  </v-btn>
+                </template>
+                <span>Details</span>
+              </v-tooltip>
 
-              <v-btn @click="deleteItem(book.id)" icon color="primary">
-                <v-icon>mdi-delete-outline</v-icon>
-              </v-btn>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn @click="deleteItem(book.id)" icon color="primary" v-on="on">
+                    <v-icon>mdi-delete-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span>Delete</span>
+              </v-tooltip>
+
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn @click="deleteItem(book.id)" icon color="primary" v-on="on">
+                    <v-icon>mdi-file-document-edit-outline</v-icon>
+                  </v-btn>
+                </template>
+                <span>Edit</span>
+              </v-tooltip>
             </v-col>
-            <v-col cols="7">
-              <v-btn icon>
-                <v-icon color="primary">mdi-book-open-page-variant</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon color="primary">mdi-timer-sand</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon color="primary">mdi-check-bold</v-icon>
-              </v-btn>
+
+            <v-col cols="12" class="py-0">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on" v-bind:class="{'v-btn--disabled' : isCurrent}">
+                    <v-icon color="primary">mdi-book-open-page-variant</v-icon>
+                  </v-btn>
+                </template>
+                <span>Move to Current</span>
+              </v-tooltip>
+
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on" v-bind:class="{'v-btn--disabled' : isLater}">
+                    <v-icon color="primary">mdi-timer-sand</v-icon>
+                  </v-btn>
+                </template>
+                <span>Move to Want to Read</span>
+              </v-tooltip>
+
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on" v-bind:class="{'v-btn--disabled' : isFinished}">
+                    <v-icon color="primary">mdi-check-bold</v-icon>
+                  </v-btn>
+                </template>
+                <span>Move to Finished</span>
+              </v-tooltip>
             </v-col>
           </v-row>
         </v-col>
@@ -55,7 +97,21 @@
 <script>
 import BooksService from "@/services/BooksService";
 export default {
+  data() {
+    return {
+      isCurrent: false,
+      isLater: false,
+      isFinished: false
+    };
+  },
   props: ["book"],
+  mounted() {
+    if (this.book.listType === "current") {
+      this.isCurrent = true;
+    } else if (this.book.listType === "finished") {
+      this.isFinished = true;
+    } else this.isLater = true;
+  },
   methods: {
     async deleteItem(bookId) {
       try {

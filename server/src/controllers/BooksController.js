@@ -29,7 +29,7 @@ module.exports = {
       res.send(book)
     } catch (err) {
       res.status(400).send({
-        error: 'An error has occured trying to create the books.'
+        error: 'An error has occured trying to create the book.'
       })
     }
   },
