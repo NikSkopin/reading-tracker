@@ -18,7 +18,7 @@ module.exports = {
       res.send(book)
     } catch (err) {
       res.status(400).send({
-        error: 'An error has occured trying to fetch a book.'
+        error: 'An error has occured trying to show a book.'
       })
     }
   },
@@ -42,6 +42,23 @@ module.exports = {
     } catch (err) {
       res.status(400).send({
         error: 'An error has occured trying to delete the book.'
+      })
+    }
+  },
+  async put(req, res) {
+    console.log('PARAMS', req.params.bookId)
+
+    try {
+      await Book.update(req.body, {
+        where: {
+          id: req.params.bookId
+        }
+      })
+
+      res.send(req.body)
+    } catch (err) {
+      res.status(400).send({
+        error: 'An error has occured trying to update the book.'
       })
     }
   }

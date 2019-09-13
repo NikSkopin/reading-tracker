@@ -23,7 +23,7 @@
             <p class="display-1 text--primary">{{book.title}}</p>
             <p class="title">by {{book.author}}</p>
           </v-col>
-          <v-row>
+          <v-row align-content-start>
             <v-col cols="12" class="py-0">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
@@ -50,7 +50,12 @@
 
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn @click="deleteItem(book.id)" icon color="primary" v-on="on">
+                  <v-btn
+                    :to="{ name: 'edit', params: {bookId: book.id }}"
+                    icon
+                    color="primary"
+                    v-on="on"
+                  >
                     <v-icon>mdi-file-document-edit-outline</v-icon>
                   </v-btn>
                 </template>
@@ -58,33 +63,52 @@
               </v-tooltip>
             </v-col>
 
-            <v-col cols="12" class="py-0">
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn icon v-on="on" v-bind:class="{'v-btn--disabled' : isCurrent}">
-                    <v-icon color="primary">mdi-book-open-page-variant</v-icon>
-                  </v-btn>
-                </template>
-                <span>Move to Current</span>
-              </v-tooltip>
+            <v-col cols="5" class="py-0">
+              <div>
+                <div class="pa-0 mt-2 group-border">
+                  <p class="subheading group-heading">Move to list</p>
+                  <v-tooltip bottom class="ml-2">
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        @click="changeTo('current', book.id)"
+                        v-on="on"
+                        v-bind:class="{'v-btn--disabled' : isCurrent}"
+                      >
+                        <v-icon color="primary">mdi-book-open-page-variant</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>Move to Current</span>
+                  </v-tooltip>
 
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn icon v-on="on" v-bind:class="{'v-btn--disabled' : isLater}">
-                    <v-icon color="primary">mdi-timer-sand</v-icon>
-                  </v-btn>
-                </template>
-                <span>Move to Want to Read</span>
-              </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        @click="changeTo('wantToRead', book.id)"
+                        icon
+                        v-on="on"
+                        v-bind:class="{'v-btn--disabled' : isLater}"
+                      >
+                        <v-icon color="primary">mdi-timer-sand</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>Move to Want to Read</span>
+                  </v-tooltip>
 
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn icon v-on="on" v-bind:class="{'v-btn--disabled' : isFinished}">
-                    <v-icon color="primary">mdi-check-bold</v-icon>
-                  </v-btn>
-                </template>
-                <span>Move to Finished</span>
-              </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        @click="changeTo('finished', book.id)"
+                        icon
+                        v-on="on"
+                        v-bind:class="{'v-btn--disabled' : isFinished}"
+                      >
+                        <v-icon color="primary">mdi-check-bold</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>Move to Finished</span>
+                  </v-tooltip>
+                </div>
+              </div>
             </v-col>
           </v-row>
         </v-col>
@@ -116,11 +140,19 @@ export default {
     async deleteItem(bookId) {
       try {
         await BooksService.deleteItem(bookId);
+      } catch (err) {
+        console.log("Can't delete this item");
+      }
+    },
+
+    async changeTo(list, bookId) {
+      try {
+        await BooksService.put(this.book);
         this.$router.push({
           name: "mybooks"
         });
       } catch (err) {
-        console.log("Can't delete this item");
+        this.error = err;
       }
     }
   }
@@ -129,5 +161,21 @@ export default {
 <style>
 .nodec {
   text-decoration: none;
+}
+.group-border {
+  border: 1px solid #1e88e5;
+  border-radius: 6px;
+  width: 185px;
+  position: relative;
+  z-index: 1;
+}
+.group-heading {
+  position: absolute;
+  color: #1e88e5;
+  top: -12px;
+  left: 15px;
+  z-index: 500;
+  background-color: #fff;
+  padding: 0 3px;
 }
 </style>

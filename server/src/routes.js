@@ -18,4 +18,6 @@ module.exports = app => {
   app.get('/mybooks/:bookId', BooksController.show)
 
   app.delete('/mybooks/:bookId', BooksController.deleteItem)
+
+  app.put('/mybooks/:bookId', BooksController.put)
 }

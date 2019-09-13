@@ -12,5 +12,8 @@ export default {
   },
   deleteItem(bookId) {
     return Api().delete(`mybooks/${bookId}`)
+  },
+  put(book) {
+    return Api().put(`mybooks/${book.id}`, book)
   }
 }

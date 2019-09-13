@@ -22,9 +22,7 @@
                 </v-card>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <router-link to="mybooks/add" tag="span" class="v-toolbar__title home">
-                    <v-btn color="primary">Add Custom Book</v-btn>
-                  </router-link>
+                  <v-btn :to="{ name: 'book-create'}" color="primary">Add Custom Book</v-btn>
                   <router-link to="/search" tag="span" class="v-toolbar__title home">
                     <v-btn color="primary">Google Books Search</v-btn>
                   </router-link>

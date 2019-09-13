@@ -7,6 +7,7 @@ import MyBooks from '@/components/MyBooks'
 import AddCustomBook from '@/components/AddCustomBook'
 import Search from '@/components/Search'
 import ViewBook from '@/components/ViewBook'
+import EditBook from '@/components/EditBook'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: Search
+    },
+    {
+      path: '/mybooks/:bookId/edit',
+      name: 'edit',
+      component: EditBook
     }
   ]
 })
