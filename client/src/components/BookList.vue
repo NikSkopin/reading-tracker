@@ -11,21 +11,26 @@ import Book from "@/components/Book";
 export default {
   data() {
     return {
-      bookList: null
+      bookList: []
     };
   },
   components: {
     Book
   },
   props: ["listType"],
-  async mounted() {
-    //do a request to the backend for all current books
-    const list = (await BooksService.index()).data;
+  watch: {
+    "$route.query.searchDB": {
+      //once a query string search value changes, get list of books from server
+      immediate: true,
+      async handler(value) {
+        const list = (await BooksService.index(value)).data;
+        console.log(list);
 
-    //filter books with needed type
-    this.bookList = list.filter(element => {
-      return element.listType === this.listType;
-    });
+        this.bookList = list.filter(element => {
+          return element.listType === this.listType;
+        });
+      }
+    }
   }
 };
 </script>

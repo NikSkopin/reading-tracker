@@ -45,7 +45,7 @@
                       <v-layout align-center justify-space-between>
                         <v-flex xs8>
                           <v-select
-                            v-model="book.selection"
+                            :value="book.selection"
                             :items="book.items"
                             label="Add to list"
                             required

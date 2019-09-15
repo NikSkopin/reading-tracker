@@ -1,10 +1,26 @@
 const { Book } = require('../models')
+const { Op } = require('sequelize')
 
 module.exports = {
   async index(req, res) {
     try {
-      const books = await Book.findAll()
-      res.send(books)
+      let books = null
+      const search = req.query.search
+      if (search) {
+        books = await Book.findAll({
+          where: {
+            [Op.or]: ['title', 'author', 'genre', 'description'].map(key => ({
+              [key]: {
+                [Op.like]: `%${search}%`
+              }
+            }))
+          }
+        })
+        res.send(books)
+      } else {
+        const books = await Book.findAll()
+        res.send(books)
+      }
     } catch (err) {
       res.status(400).send({
         error: 'An error has occured trying to fetch the books.'

@@ -6,6 +6,7 @@
           <v-container fluid>
             <v-layout align-space-between justify-center column fill-height>
               <v-flex xs12>
+                <BookSearchDB />
                 <v-card class="mb-10">
                   <v-card-title class="text-uppercase" primary-title>reading now</v-card-title>
                   <BookList listType="current" />
@@ -39,10 +40,12 @@
 <script>
 import Panel from "@/components/Panel";
 import BookList from "@/components/BookList";
+import BookSearchDB from "@/components/BookSearchDB";
 export default {
   components: {
     Panel,
-    BookList
+    BookList,
+    BookSearchDB
   }
 };
 </script>
