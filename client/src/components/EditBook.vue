@@ -77,8 +77,6 @@ export default {
       } else if (this.book.listType === "finished") {
         this.selection.list = "Finished";
       } else this.selection.list = "Want to read";
-
-      console.log(this.selection.list);
     } catch (err) {
       this.error = err;
     }

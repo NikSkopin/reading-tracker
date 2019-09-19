@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   data() {
     return {
@@ -23,7 +24,7 @@ export default {
   },
   watch: {
     //input string watcher
-    searchDB(value) {
+    searchDB: _.debounce(async function(value) {
       const route = {
         name: "mybooks"
       };
@@ -33,7 +34,7 @@ export default {
         };
       }
       this.$router.push(route);
-    },
+    }, 700),
     //route watcher (address, i.e. mybooks?searchDB=value)
     "$route.query.searchDB": {
       immediate: true,

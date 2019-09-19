@@ -52,6 +52,11 @@ export default new Router({
       path: '/mybooks/:bookId/edit',
       name: 'edit',
       component: EditBook
+    },
+
+    {
+      path: '*',
+      redirect: 'mybooks'
     }
   ]
 })

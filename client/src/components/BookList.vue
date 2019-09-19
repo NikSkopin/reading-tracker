@@ -24,7 +24,6 @@ export default {
       immediate: true,
       async handler(value) {
         const list = (await BooksService.index(value)).data;
-        console.log(list);
 
         this.bookList = list.filter(element => {
           return element.listType === this.listType;
