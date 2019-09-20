@@ -45,7 +45,7 @@
                       <v-layout align-center justify-space-between>
                         <v-flex xs8>
                           <v-select
-                            :value="book.selection"
+                            v-model="book.selection"
                             :items="book.items"
                             label="Add to list"
                             required
@@ -107,11 +107,14 @@ export default {
     },
 
     async add(bookElement) {
+      console.log("selection = ", this.book.selection);
       if (this.book.selection === "Reading now") {
         this.book.listType = "current";
       } else if (this.book.selection === "Finished") {
         this.book.listType = "finished";
       } else this.book.listType = "wantToRead";
+
+      console.log("listtype = ", this.book.selection);
 
       this.book.title = bookElement.volumeInfo.title;
       if (bookElement.volumeInfo.authors) {
@@ -128,6 +131,8 @@ export default {
 
       //add book to database
       try {
+        console.log("list type = ", this.book.listType, this.book);
+
         await BooksService.post(this.book);
         this.$router.push({
           name: "mybooks"

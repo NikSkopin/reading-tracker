@@ -40,6 +40,8 @@ module.exports = {
   },
   async post(req, res) {
     try {
+      console.log('HAHAHA ', req.body)
+
       const book = await Book.create(req.body)
 
       res.send(book)
@@ -51,10 +53,11 @@ module.exports = {
   },
   async deleteItem(req, res) {
     try {
-      const id = parseInt(req.params.bookId)
+      const id = req.params.bookId
       await Book.findByPk(id).then(bookItem => {
         return bookItem.destroy()
       })
+      res.send(req.body)
     } catch (err) {
       res.status(400).send({
         error: 'An error has occured trying to delete the book.'

@@ -15,7 +15,6 @@
         <v-col cols="12" class="py-0">
           <p class="headline mb-1">{{book.title}}</p>
           <p class="body-1 mb-1">by {{book.author}}</p>
-          <p class="body-1 mb-1">{{book.listType}}</p>
         </v-col>
         <v-row align-content-start>
           <v-col cols="12" class="py-0">
@@ -35,7 +34,7 @@
 
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
-                <v-btn @click.prevent="deleteItem(book.id)" icon color="primary" v-on="on">
+                <v-btn @click="deleteItem(book.id)" icon color="primary" v-on="on">
                   <v-icon size="22">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
@@ -65,7 +64,7 @@
                 <v-tooltip bottom class="ml-2">
                   <template v-slot:activator="{ on }">
                     <v-btn
-                      @click.prevent="changeTo('current', book.id)"
+                      @click="changeTo('current', book.id)"
                       icon
                       v-on="on"
                       v-bind:class="{'v-btn--disabled' : isCurrent}"
@@ -79,7 +78,7 @@
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
                     <v-btn
-                      @click.prevent="changeTo('wantToRead', book.id)"
+                      @click="changeTo('wantToRead', book.id)"
                       icon
                       v-on="on"
                       v-bind:class="{'v-btn--disabled' : isLater}"
@@ -93,7 +92,7 @@
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
                     <v-btn
-                      @click.prevent="changeTo('finished', book.id)"
+                      @click="changeTo('finished', book.id)"
                       icon
                       v-on="on"
                       v-bind:class="{'v-btn--disabled' : isFinished}"
@@ -134,6 +133,7 @@ export default {
     async deleteItem(bookId) {
       try {
         await BooksService.deleteItem(bookId);
+        this.$emit("bookChanged");
       } catch (err) {
         console.log("Can't delete this item");
       }
@@ -144,12 +144,10 @@ export default {
 
       try {
         await BooksService.put(this.book);
+        this.$emit("bookChanged");
       } catch (err) {
         this.error = err;
       }
-      // this.$router.push({
-      //   name: "search"
-      // });
     }
   }
 };

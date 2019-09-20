@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="bookElement in bookList" :key="bookElement.id">
-      <Book :book="bookElement" />
+      <Book :book="bookElement" @bookChanged="refreshMe" />
     </div>
   </div>
 </template>
@@ -18,6 +18,11 @@ export default {
     Book
   },
   props: ["listType"],
+  methods: {
+    async refreshMe() {
+      this.$emit("bookListChanged");
+    }
+  },
   watch: {
     "$route.query.searchDB": {
       //once a query string search value changes, get list of books from server
