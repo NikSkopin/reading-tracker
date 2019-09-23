@@ -7,7 +7,7 @@
             <h2>Hello!</h2>
             <p>Welcome to the Reading Tracker application.</p>
             <p>Here you can track your reading journey. You can use Google books for searching books and then add them to different lists, whether you are reading them now, want to read them later or you have already finished them.</p>
-            <p>
+            <p v-if="!$store.state.isUserLoggedIn">
               Please
               <a href="#/register">register</a> or
               <a href="#/login">log in</a>.

@@ -6,40 +6,37 @@
           <v-toolbar-title>Reading Tracker</v-toolbar-title>
         </router-link>
         <v-toolbar-items>
-          <!-- <v-btn text>
-            <router-link :to="{name: 'home'}" tag="span" class="v-btn__content">Dashboard</router-link>
-          </v-btn>-->
-
-          <router-link
+          <v-btn
             :to="{name: 'mybooks'}"
-            tag="button"
-            class="v-btn v-btn--contained theme--light v-size--default primary ml-4"
             v-if="$store.state.isUserLoggedIn"
-          >My books</router-link>
+            color="primary"
+            class="ml-4"
+            depressed
+          >My books</v-btn>
 
-          <router-link
+          <v-btn
             :to="{name: 'search'}"
-            tag="button"
-            class="v-btn v-btn--contained theme--light v-size--default primary"
             v-if="$store.state.isUserLoggedIn"
-          >Search</router-link>
+            color="primary"
+            depressed
+          >Search</v-btn>
         </v-toolbar-items>
 
         <v-spacer></v-spacer>
         <v-toolbar-items>
-          <router-link
+          <v-btn
             :to="{name: 'login'}"
-            tag="button"
-            class="v-btn v-btn--contained theme--light v-size--default primary"
+            color="primary"
             v-if="!$store.state.isUserLoggedIn"
-          >Login</router-link>
+            depressed
+          >Login</v-btn>
 
-          <router-link
+          <v-btn
             :to="{name: 'register'}"
-            tag="button"
-            class="v-btn v-btn--contained theme--light v-size--default primary"
+            color="primary"
             v-if="!$store.state.isUserLoggedIn"
-          >Register</router-link>
+            depressed
+          >Register</v-btn>
           <v-btn text v-if="$store.state.isUserLoggedIn" @click="logout">Logout</v-btn>
         </v-toolbar-items>
       </v-app-bar>
@@ -48,7 +45,7 @@
         <router-view />
       </v-content>
       <v-footer color="primary" app>
-        <span class="white--text">&copy; 2019</span>
+        <span class="white--text">Nikita Skopin &copy; 2019</span>
       </v-footer>
     </v-app>
   </div>
